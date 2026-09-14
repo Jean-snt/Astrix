@@ -16,23 +16,24 @@ export function AstrixLogo({
   className = "",
   size = "md",
 }: AstrixLogoProps) {
-  // Enriched sizes: Prominent enlarged icon + proportional text
+  // Enriched sizes: Prominent enlarged icon + 1:1 proportional text
   const iconSizes = {
-    sm: "h-8",
-    md: "h-11 sm:h-12",
+    sm: "h-8 sm:h-9",
+    md: "h-10 sm:h-11 md:h-12",
     lg: "h-14 sm:h-16",
     xl: "h-20",
   };
 
+  // Increased text heights for 1:1 proportion with icon and matching menu typography
   const textHeights = {
-    sm: "h-4 sm:h-5",
-    md: "h-6 sm:h-7",
-    lg: "h-8 sm:h-9",
-    xl: "h-12",
+    sm: "h-6 sm:h-7",
+    md: "h-8 sm:h-9 md:h-10",
+    lg: "h-11 sm:h-13",
+    xl: "h-16",
   };
 
   return (
-    <div className={`inline-flex items-center gap-3.5 group flex-shrink-0 select-none ${className}`}>
+    <div className={`inline-flex items-center gap-3 sm:gap-4 group flex-shrink-0 select-none ${className}`}>
       {/* Icon: Official AVENTORIX Icon */}
       <img
         src="/icono-aventorix.png"
@@ -42,11 +43,13 @@ export function AstrixLogo({
 
       {/* Text: Official AVENTORIX Typography */}
       {showText && (
-        <img
-          src="/texto-aventorix.png"
-          alt="AVENTORIX"
-          className={`${textHeights[size]} w-auto object-contain transition-opacity duration-300 group-hover:opacity-90`}
-        />
+        <div className="flex items-center">
+          <img
+            src="/texto-aventorix.png"
+            alt="AVENTORIX"
+            className={`${textHeights[size]} w-auto object-contain transition-opacity duration-300 group-hover:opacity-90 font-bold tracking-wider text-xl sm:text-2xl`}
+          />
+        </div>
       )}
     </div>
   );
