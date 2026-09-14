@@ -1,0 +1,24 @@
+3. ECOSISTEMA TECNOLÓGICO AMPLIADO (18+ HERRAMIENTAS):
+- Grid de 18 tecnologías con sus iconos y etiquetas técnicas:
+  [Laravel, React, Next.js, FastAPI, Node.js, Python, Java, PHP, PostgreSQL, MySQL, Kali Linux, Metasploit, Wireshark, AWS, Azure, Hostinger, Docker, GitHub Actions].
+
+4. CULTURA ASTRIANA Y ENFOQUE MULTINACIONAL GLOBAL:
+- Cambiar la frase principal a: "Sin fronteras geográficas: Uniendo el talento tecnológico global para construir arquitecturas del futuro desde cualquier continente".
+- Incluir un bloque que destaque la capacidad de ejecutar proyectos B2B con clientes e integrantes en América, Europa y otros continentes.
+- Expandir a 6 Cards de Experiencia (Experiencia Real, Metodología Agile, Autonomía Remota, Desarrollo Continuo, Entregables Globales, Mentoría Directa) con iconos Lucide representativos.
+
+5. IDENTIDAD CROMÁTICA ORGANIZACIONAL (ANTES DISCORD):
+- Reemplazar cualquier mención a "Discord" por "Nuestra Identidad Cromática Organizational".
+- Rediseñar el layout con una lista alineada a la izquierda para evitar espacios vacíos a la derecha, asociando cada color con su respectiva área core.
+
+6. DESCARGA DIRECTA DE DOSSIER TÉCNICO (PDF LOCAL):
+- Modificar el card/modal del Dossier Técnico para que al hacer clic en "Descargar Dossier PDF", descargue directamente el archivo PDF de la computadora/servidor local sin solicitar registro de correo electrónico.
+
+7. BOTÓN "AGENDAR REUNIÓN" CON VALIDACIÓN DE PERFIL:
+- Cambiar el botón para que redirija al formulario interno de la web donde el usuario especifica su rol ("Cliente B2B / Empresa" o "Postulante / Practicante") antes de coordinar la fecha.
+
+8. UBICACIÓN DISCRETA DE VALIDACIÓN DE CREDENCIALES:
+- Mover el módulo "Verificación de Credenciales Astrianas" (consulta API Laravel) hasta la parte inferior de la página, inmediatamente antes del Footer global.
+
+Garantizar tipado estricto en TypeScript, Tailwind CSS y compatibilidad responsive Mobile-First en el 100% de las vistas.
+================================================================================

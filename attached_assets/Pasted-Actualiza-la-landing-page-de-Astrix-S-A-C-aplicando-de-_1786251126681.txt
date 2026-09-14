@@ -1,0 +1,53 @@
+Actualiza la landing page de Astrix S.A.C. aplicando de forma estricta los siguientes requerimientos de UI, UX, textos y animaciones:
+
+1. SECCIÓN NOSOTROS (NAVBAR & CONTENT):
+Al hacer clic en "Nosotros" en el menú de navegación, renderiza/despliega la siguiente información corporativa oficial:
+
+"Astrix S.A.C. — El núcleo tecnológico de las empresas escalables
+
+Somos una firma de ingeniería de software, consultoría de arquitecturas cloud y automatización fundada con la convicción de acelerar la evolución tecnológica en Perú y Latinoamérica. Iniciamos nuestras operaciones con el propósito firme de redefinir el estándar de las telecomunicaciones, redes, infraestructuras descentralizadas y sistemas corporativos de alta demanda.
+
+No somos una agencia convencional de desarrollo. Nacimos para resolver los problemas de software más complejos que enfrentan las organizaciones en crecimiento. Diseñamos, construimos y desplegamos arquitecturas de software multi-inquilino (Multi-tenancy), ecosistemas conversacionales con inteligencia artificial, sistemas de gestión interna de alto rendimiento e infraestructuras seguras bajo estándares internacionales de ciberseguridad.
+
+¿Qué nos diferencia en la industria?
+
+1. No adaptamos sistemas legados ni dependemos de soluciones genéricas; construimos infraestructura propietaria desde cero pensada para el futuro.
+2. Formamos y operamos bajo la "Cultura Astriana", un ecosistema remoto altamente estructurado dividido en 5 Áreas Core y 11 Equipos Especializados que garantizan la trazabilidad total de cada proyecto, desde el análisis de requerimientos hasta el despliegue en producción.
+3. Integramos ciberseguridad en el código desde la primera línea: gobernanza estricta en repositorios, canalización de identidades y validaciones criptográficas públicas para cada activo de la empresa."
+
+2. SECCIÓN SERVICIOS Y CENTRADO DE TEXTOS:
+Aplica la propiedad `text-center` (`mx-auto text-center`) para centrar horizontalmente los siguientes contenedores de texto:
+- El encabezado y subtítulo: "Capacidades Core / Infraestructura y desarrollo de alto rendimiento para operaciones críticas."
+- El encabezado y subtítulo: "Catálogo Completo de Soluciones / Haz clic en cualquier servicio para ver precios, ROI y proceso detallado."
+Mantén la estructura y diseño visual de las tarjetas de servicios de cada equipo intactos.
+
+3. CHECKLIST 2: NAVEGACIÓN Y VISTAS DE SERVICIO:
+Corrige la acción `onClick` o la ruta de enlace en las tarjetas de servicios (ej. "Ingeniería de Software"). Al hacer clic, la vista detallada o modal NO debe scroll/redireccionar directamente a los planes y precios. Debe abrirse mostrando el INICIO del servicio (Hero interno del servicio, propuesta de valor, stack y entregables) con un scroll suave hacia arriba.
+
+4. ECOSISTEMA TECNOLÓGICO Y FLIP CARDS ANIMADAS:
+En la sección "Ecosistema Tecnológico" (Tech Stack), transforma cada una de las 18 herramientas en una tarjeta 3D Flip Card interactiva (`perspective: 1000px`, `transform-style: preserve-3d`).
+- Cara Frontal (Front): Muestra el nombre de la tecnología junto a su icono/SVG oficial con un fondo tecnológico de grano/patrón de red animado (sutil overlay de circuito/código).
+- Cara Trasera (Back): Al hacer clic (`isFlipped = true`), la tarjeta realiza un giro de 180° sobre el eje Y (`rotateY(180deg)`) mostrando un fondo de gradiente neón/oscuro y la descripción breve de la herramienta.
+
+Lista de herramientas y descripciones traseras (Back side):
+- Laravel: Framework PHP robusto para APIs y arquitecturas backend escalables.
+- React: Librería UI de alto rendimiento para interfaces dinámicas y SPAs.
+- Next.js: Framework React full-stack optimizado para SSR, SEO y velocidad extrema.
+- FastAPI: Framework Python ultra rápido especializado en APIs REST e IA.
+- Node.js: Entorno de ejecución asíncrono en JavaScript para microservicios.
+- Python: Lenguaje versátil para bots, automatizaciones y scripts de IA.
+- Java: Lenguaje enterprise para sistemas pesados, CRMs, ERPs y alta concurrencia.
+- PHP: Lenguaje servidor para aplicaciones web modernas y arquitecturas MVC.
+- PostgreSQL: Base de datos relacional de nivel empresarial con soporte Multi-tenancy.
+- MySQL: Sistema de gestión de bases de datos relacionales ágil y confiable.
+- Kali Linux: Distribución especializada en auditorías de ciberseguridad y pentesting.
+- Metasploit: Framework de pruebas de penetración y análisis de vulnerabilidades.
+- Wireshark: Herramienta de análisis de protocolos de red y tráfico en tiempo real.
+- AWS: Infraestructura cloud elástica, computación distribuida y almacenamiento.
+- Azure: Plataforma cloud de Microsoft para gestión de identidades y recursos.
+- Hostinger: Alojamiento web de alta disponibilidad y gestión de dominios.
+- Docker: Contenedorización de aplicaciones para despliegues portables y uniformes.
+- GitHub Actions: CI/CD automatizado para integración y despliegue continuo de código.
+
+5. CHECKLIST 3: FOOTER Y LOGO OFICIAL:
+En la sección del Footer (pie de página), reemplaza el Isotipo/Logo antiguo por el Isotipo Oficial de Astrix (el triángulo geométrico cian/azul con líneas cruzadas), asegurando que coincida exactamente en dimensiones, SVG y color neón con el isotipo del Header superior.

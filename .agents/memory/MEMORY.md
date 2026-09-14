@@ -1,0 +1,1 @@
+- [Build de artefactos web](artifact-build-env.md) — los builds locales del artefacto requieren las variables de entorno inyectadas por su workflow.

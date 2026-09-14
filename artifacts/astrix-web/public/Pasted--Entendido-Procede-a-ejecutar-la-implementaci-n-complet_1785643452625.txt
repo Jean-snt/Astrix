@@ -1,0 +1,18 @@
+¡Entendido! Procede a ejecutar la implementación completa del "PROMPT MAESTRO DEFINITIVO - CONTINUACIÓN & REFACTORIZACIÓN ASTRIX S.A.C. (2026)".
+
+Lleva a cabo las siguientes acciones de refactorización y construcción sobre la base existente:
+
+1. NAVEGACIÓN SUPERIOR: Convierte el Sidebar principal en un Top Navbar Sticky en Desktop (preservando el isotipo oficial + texto "ASTRIX") y mantén el menú hamburguesa responsive en Mobile.
+2. VISTAS DE SERVICIOS DIVERSIFICADAS: Configura las 4 vistas dinámicas de servicios integrando las animaciones/layouts del archivo prompts.txt:
+   - ERP/CRM: Layout minimalista tipo [PROMPT MANO].
+   - Bots & Cloud: Efecto Typewriter y pills reactivas tipo [PROMPT HUMANO IA].
+   - Consultoría & Seguridad: Efecto .liquid-glass y badges flotantes tipo [PROMPT IMAGEN GIRANDO].
+   - E-commerce: Mockup 3D interactivo CSS tipo [PROMPT CELULAR GIRANDO].
+3. ECOSISTEMA TECNOLÓGICO: Construye la grid con las 18 herramientas especificadas (Laravel, React, Next.js, FastAPI, Node.js, Python, Java, PHP, PostgreSQL, MySQL, Kali Linux, Metasploit, Wireshark, AWS, Azure, Hostinger, Docker, GitHub Actions).
+4. CULTURA Y GLOBALIDAD: Actualiza la frase principal ("Sin fronteras geográficas..."), añade el bloque multinacional y despliega las 6 cards de experiencia con iconos Lucide.
+5. IDENTIDAD CROMÁTICA: Renombra la sección a "Nuestra Identidad Cromática Organizacional" y reorganiza el diseño a una lista/tarjetas alineadas a la izquierda.
+6. DOSSIER PDF LOCAL: Ajusta la acción de descarga para que entregue directamente el archivo .pdf local al hacer clic, eliminando el paso de formulario de correo.
+7. AGENDAR REUNIÓN: Modifica el flujo para que el botón redirija al formulario interno de calificación de perfil (B2B vs Postulante).
+8. CREDENCIALES AL FINAL: Desplaza la sección "Verificación de Credenciales Astrianas" al bloque inferior previo al Footer.
+
+Asegúrate de mantener estricto TypeScript, Tailwind CSS, compatibilidad Mobile-First y de informarme apenas termines de aplicar los cambios. ¡Comienza ahora!

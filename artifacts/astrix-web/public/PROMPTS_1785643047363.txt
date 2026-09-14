@@ -1,0 +1,632 @@
+PROMPT MANO: 
+Create a full-screen hero section landing page using React, Vite, and Framer Motion (`motion` package). Use plain CSS (no Tailwind). The font is Inter (weights 300, 400, 500, 600) from Google Fonts. The design is minimal black-and-white with a full-viewport background video.
+
+**Stack:** React 19, Vite, `motion` (framer-motion), `lucide-react` (for the Plus icon).
+
+**Layout:**
+- Full viewport height (`min-height: 100vh`), white background, flex column with `justify-content: space-between`
+- Fixed navbar at top (z-index 50, pointer-events none on the nav itself, auto on children)
+- Absolutely positioned full-screen video behind everything (z-index 0)
+- Footer content pinned to bottom (z-index 30) with a white gradient fade-up background
+
+**Navbar (fixed, top):**
+- Left side contains:
+  1. Logo: custom SVG icon (two rotated rounded rectangles at -35deg, black fill) + brand text "NeuralKinetics" (hidden on mobile, shown on desktop 768px+)
+  2. Menu button: black pill with white circle containing a Plus icon (lucide, size 12, strokeWidth 3) + "Menu" text (11px, white)
+  3. Tags pill: light gray (#F4F4F6) rounded-full container with two text labels "Advanced Bionics" and "Cognitive AI" (hidden on mobile, shown on desktop)
+- Right side contains:
+  - A light gray pill with a black circle button (containing a 4-dot grid SVG icon) + label "Adaptive Systems" (hidden on mobile)
+
+**Background Video:**
+- URL: `https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4`
+- autoPlay, muted, playsInline, object-fit: cover
+- On mobile: video wrapper is 80% width and 80% height (centered)
+- On desktop (768px+): video wrapper is 100% width and 100% height
+
+**Footer content (bottom, over gradient):**
+- Background: `linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.8) 50%, transparent 100%)`
+- On mobile: stacks vertically. On desktop: row layout, items aligned to bottom.
+- Left block:
+  1. Subtitle line: small black dot (8px circle) + "Best digital banking card 2026" (13px, 55% opacity black)
+  2. Heading: "One Card, Zero / Limits. Worldwide." on two lines. Font-weight 300, clamp(2rem, 8vw, 4.5rem) on mobile, clamp(2.5rem, 5.5vw, 4.5rem) on desktop, letter-spacing -0.03em, line-height 1
+  3. Two buttons: "See Features" (black pill, white text, 13px) and "How It Works" (transparent with dark border rgba(0,0,0,0.35), 13px)
+- Right block: Three tag pills "Neuromorphic", "AGI", "Cybernetics" (white bg, light border rgba(0,0,0,0.12), 11px, rounded-full)
+
+**Animations (using `motion` from 'motion/react'):**
+- Navbar: slides down from y:-16, opacity 0 to visible. Duration 0.8s, ease [0.16, 1, 0.3, 1]
+- Video: fades in from opacity 0 + scale 1.05 to opacity 1 + scale 1. Duration 1.8s
+- Footer wrapper: slides up from y:20, delay 0.5s, duration 1s
+- Subtitle: slides up from y:16, delay 0.6s, duration 0.8s
+- Heading: slides up from y:20, delay 0.8s, duration 0.8s
+- Buttons: slides up from y:16, delay 1.0s, duration 0.8s
+- All use ease: [0.16, 1, 0.3, 1]
+
+**Responsive (mobile-first, breakpoint at 768px):**
+- Mobile: navbar padding 16px, smaller buttons (28px circles), brand text hidden, tags hidden, right label hidden, footer stacks vertically, video at 80% size
+- Desktop (768px+): navbar padding 24px 32px, larger buttons (32px circles), all text/tags visible, footer is row layout, video fills 100%
+
+
+----------PROMPT HUMANO IA --------
+Build a modern, interactive hero section using React, Tailwind CSS, and Framer Motion (motion/react). Ensure you follow these precise architecture and styling instructions:
+1. Fonts & Global Animations
+Import the Inter font from Google Fonts.
+In your CSS setup, configure Tailwind to use it by default (--font-sans: 'Inter', ...).
+Create a keyframe animation in CSS named blink for the typewriter cursor:
+code
+CSS
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink { animation: blink 1s step-end infinite; }
+2. General Page Structure
+Wrap the entire application in a container div with the following classes: relative bg-white text-neutral-900 font-sans selection:bg-[#EAECE9] selection:text-[#1C2E1E] antialiased overflow-x-hidden flex flex-col lg:block lg:min-h-screen.
+3. Background Video Component (with Native Scrubbing)
+Container element: Add a div containing the background video with classes: order-last lg:order-none relative lg:absolute lg:inset-0 lg:z-0 overflow-hidden pointer-events-none w-full aspect-square md:aspect-video lg:aspect-auto lg:h-full bg-neutral-50 lg:bg-transparent.
+Video element: Use <video> with muted, playsInline, preload="auto".
+Video Source URL: https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260601_110537_3a579fa0-7bbc-4d94-9d25-0e816c7840f5.mp4
+Classes: w-full h-full object-cover object-right lg:object-right-bottom.
+Scrubbing/Playback Logic via useEffect hooks:
+Desktop Mouse Scrubbing Hook: Listen to the window mousemove event. If window.innerWidth < 1024, ignore (disable scrubbing). Store the mouse 'previous X' coordinate to calculate the delta against 'current X'. Update the target scrub time based on (delta / window.innerWidth) * 0.8 * video.duration. Clamp the time between 0 and duration. Set video.currentTime = targetTime. Bind a seeked event listener to ensure smooth tracking frame to frame.
+Mobile Autoplay Hook: Because scrubbing is disabled on mobile frames, trigger normal playback for screens < 1024 width: video.autoplay = true and video.play().
+4. Interactive Navbar
+Header wrapper: Wrap the Navbar in <header className="fixed top-0 inset-x-0 z-10 px-5 sm:px-8 py-4 sm:py-5 flex flex-row justify-between items-center bg-transparent">
+Logo (Left side): Flex row with gap-3.
+Text: Mainframe&reg; (using the ® symbol). Classes: text-[21px] sm:text-[26px] tracking-tight text-black font-medium select-none.
+Icon block right beside it: An asterisk &#10033;. Classes: text-[25px] sm:text-[30px] text-black select-none tracking-[-0.02em] font-medium leading-none mb-1.
+Desktop Nav Links (Center): Flex row, hidden md:flex, text-[23px] text-black. Links are "Labs", "Studio", "Openings", "Shop" separated by <span className="opacity-40">,&nbsp;</span> dividers. Hover states should use hover:opacity-60 transition-opacity.
+Desktop CTA (Right): Hidden on mobile. A link reading "Get in touch" mapped with text-[23px] text-black underline underline-offset-2 hover:opacity-60 transition-opacity.
+Mobile Menu Logic:
+Hamburger <button> visible below md. Has three w-6 h-[2px] bg-black spans.
+Hook it to a local state isMobileMenuOpen. When open, animate the burger into an 'X' (top bar rotate-45 translate-y-[7px], middle bar opacity-0, bottom bar -rotate-45 -translate-y-[7px]). All spans need transition-all duration-300.
+Create a full screen Mobile Navigation Overlay div hidden on Desktop. Fixed inset-0 z-[9] with bg-white/95 backdrop-blur-sm. Apply opacity-100 pointer-events-auto when isMobileMenuOpen is true; otherwise, opacity-0 pointer-events-none.
+5. Content Layout Container
+Below the background video and relative to it, add a content grouping layer: <div className="relative z-10 flex flex-col order-first lg:order-none w-full bg-white lg:bg-transparent pb-8 lg:pb-0 lg:min-h-screen">
+Inside that, the overarching layout engine: <main id="spade-hero" className="w-full max-w-7xl mx-auto px-6 py-12 flex-1 flex flex-col justify-center">
+6. Typewriter Hook and Headline
+Implement a custom useTypewriter(text, speed = 38, startDelay = 600) React hook. It uses setTimeout and setInterval to iteratively build a string slice by slice. It must return an object: { displayed: string, done: boolean }.
+Run the hook with the string "we'd love to\nhear from you!".
+Wrap the headline securely in a motion.div configured to drop-in (initial: opacity: 0, y: 20, animate: opacity: 1, y: 0, transition duration 0.6).
+Render your hook text inside <h1 className="text-5xl md:text-6xl lg:text-[76px] font-normal tracking-tight text-black leading-[1.08] mb-8 select-none w-full whitespace-pre-wrap">.
+While typing (!done), output a <span className="inline-block w-[2px] h-[1.1em] bg-black align-middle ml-[2px] animate-blink" /> cursor at the end of the displayed text string.
+7. Secondary Description Text
+Another motion.div (delay 0.1s from the headline).
+Content: <p> tag that reads: Whether you have questions, feedback, <br /> drop us a message and we'll get back to you as soon as possible.
+Classes: text-lg md:text-xl text-[#5A635A] leading-relaxed font-normal mb-14 max-w-2xl.
+8. Interactive Multi-Select Service Pills
+Using setServices track an array ["Brand", "Digital", "Campaign", "Other"].
+The prompt Title: "What sort of service?" (text-2xl font-medium tracking-tight mb-2). Subtitle: "Select all that apply" (opacity-85 text-[#738273] mb-8).
+Iterate over the options natively outputting motion.button wrapper tags allowing multiple selections inside a flex wrap container.
+Pill active traits classes: bg-[#1C2E1E] text-white shadow-md shadow-emerald-950/5 transform. Show a check icon (lucide-react) dropping in using type: "spring", stiffness: 300, damping: 20.
+Pill inactive traits classes: bg-white text-[#1C2E1E] border border-[#F1F3F1] hover:bg-[#F1F3F1]/55.
+Contingent Feedback Status Banner: Underneath your service pills, write an <AnimatePresence mode="wait"> that tracks user state array length:
+Empty: Show a generic placeholder indicating "Please click to select services above." at fifty percent opacity (opacity: 0.5, italic, text-xs).
+Active Selection: Swap cleanly into a container <motion.div> that springs height gracefully (height: "auto"). Inside, display an acknowledgment banner reading "Ready to inquire about: [array.join(", ")]" combined with an arrow call-to-action button "Let's Go" (text-[#4D6D47] uppercase text-xs). Style the banner with bg-[#FAFBF9] border rounded-2xl.
+
+
+
+------------- IMAGEN GIRANDO ------------------
+Build a single-page hero landing page for a holistic wellness brand called "Vibrant Wellness." Use React, TypeScript, Tailwind CSS, and Lucide React icons. Load Google Fonts "Inter" (weights 300, 400, 500, 600, 700) via link tags in the HTML head. The entire page is a full-screen (100vh) section with a looping background video and liquid glass UI elements overlaid on top.
+
+**BACKGROUND VIDEO**
+
+Full-viewport autoplaying, looping, muted, playsInline video with `object-cover`, positioned absolute inset-0. Use this exact URL:
+`https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260715_082433_69699cf8-444b-4484-93cc-053e57896dfd.mp4`
+
+**LIQUID GLASS EFFECT**
+
+Create a `.liquid-glass` CSS class applied to the nav pill, avatar circles, badge, and CTA button:
+- `background: rgba(255,255,255,0.01)` with `background-blend-mode: luminosity`
+- `backdrop-filter: blur(4px)` (with -webkit prefix)
+- No border
+- `box-shadow: inset 0 1px 1px rgba(255,255,255,0.1)`
+- `position: relative; overflow: hidden`
+- `::before` pseudo-element creating a gradient border: absolute inset-0, border-radius inherit, padding 1.4px, background is a vertical linear-gradient from rgba(255,255,255,0.45) at 0%, to 0.15 at 20%, transparent at 40-60%, back to 0.15 at 80% and 0.45 at 100%. Use the mask-composite exclude trick (`-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude`) so the gradient only shows as a border. Set `pointer-events: none`.
+
+**NAVIGATION (z-20, top)**
+
+Flex row, justify-between, padding px-5 pt-6 / sm:px-8 sm:pt-8 / md:px-16 lg:px-20.
+- Left: custom SVG logo (32x32, md:36x36), white fill, viewBox 0 0 256 256, path: `M 128 128 C 198.692 128 256 185.308 256 256 L 151.883 256 C 149.812 220.307 120.213 192 84 192 C 47.787 192 18.188 220.307 16.117 256 L 0 256 C 0 185.308 57.308 128 128 128 Z M 104.117 0 C 106.188 35.694 135.787 64 172 64 C 208.213 64 237.812 35.694 239.883 0 L 256 0 C 256 70.692 198.692 128 128 128 C 57.308 128 0 70.692 0 0 Z`
+- Center (desktop only, hidden on mobile): liquid-glass rounded-full pill (px-8 py-3) with three links — "Home" (text-white), "Our Approach" and "Healing Methods" (text-white/70, hover:opacity-100). All text-sm font-medium.
+- Right (desktop only): liquid-glass circle (h-10 w-10 rounded-full) containing Lucide `CircleUserRound` (h-5 w-5, text-white/80, strokeWidth 1.5).
+- Right (mobile only, md:hidden): liquid-glass circle button (h-10 w-10 rounded-full, z-50). Animated icon swap between Lucide `Menu` and `X` using absolute positioning with rotate-90 scale-0 opacity-0 transitions (duration-300) toggled by a `menuOpen` state.
+
+**MOBILE MENU OVERLAY (z-10, fixed inset-0, md:hidden)**
+
+Toggle visibility with 500ms ease-out opacity transition. Background: black/80 with backdrop-blur-xl. Centered flex column (gap-8) with the same three nav links at text-2xl font-medium. Below links: liquid-glass avatar circle + "Account" text (text-sm font-light text-white/60). Links close the menu on click. Content slides from -translate-y-8 to 0.
+
+**MAIN CONTENT (z-10)**
+
+Flex column, justify-between, fills remaining viewport height. On mobile, fades to opacity-0 and pointer-events-none when menu is open.
+
+Top block (mt-14 sm:mt-20 md:mt-28, max-w-2xl):
+1. Badge — liquid-glass pill (rounded-full, inline-flex, gap-2.5 sm:gap-3, px-3 py-1.5 sm:px-4 sm:py-2, mb-5 sm:mb-6). Contains 4 overlapping avatars (flex -space-x-2, each h-5 w-5 sm:h-6 sm:w-6, rounded-full, border-2 border-white/20, object-cover) using these Pexels URLs:
+   - `https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100`
+   - `https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100`
+   - `https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100`
+   - `https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=100`
+   Followed by text "our path to natural wellness" (text-xs sm:text-sm, font-light, text-white/80).
+2. Heading — `<h1>` "Heal Your Body" + `<br/>` + "Naturally". Style: text-4xl sm:text-5xl md:text-6xl lg:text-7xl, font-normal, leading-[1.05], text-white, inline letterSpacing -0.05em.
+3. Subtitle — `<p>` "Holistic wellness. Transformative results." mt-4 sm:mt-5, text-sm sm:text-base md:text-lg, font-light, text-white/70.
+4. CTA button — liquid-glass, rounded-full, px-6 py-3 sm:px-7 sm:py-3.5, mt-6 sm:mt-8, text-sm font-medium text-white, transition duration-300, hover:bg-white/10. Text: "Begin Your Journey".
+
+**BOTTOM STATS (flex, items-end, gap-6 sm:gap-10 md:gap-16)**
+
+Two stat columns:
+1. First: a small triangular dot-pattern icon built from 9 absolutely-positioned 2.5px white/60 squares inside a 20x20 box; value "48 Hours" (text-xl sm:text-2xl md:text-3xl, font-normal, text-white); label "Initial Consultation" (text-xs sm:text-sm, font-light, text-white/60).
+2. Second: a 3x3 grid icon (grid-cols-3, gap-[2px]) of 4px rounded cells alternating bg-white/60 and bg-white/0 in a checkerboard; value "Initial Consultation" (same sizing); label "Healing Sessions" (text-xs sm:text-sm, font-light, text-white/60).
+
+
+----------CELULAR GIRANDO -------------------------
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #f0eeeb;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'DM Sans', sans-serif;
+  color: #1a1816;
+  overflow: hidden;
+  cursor: none;
+}
+
+.scene {
+  perspective: 800px;
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.phone {
+  width: 256px;
+  height: 537px;
+  position: relative;
+  transform-style: preserve-3d;
+  border-radius: 30px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #c0d0de, #a8bcd0, #b4c4d4);
+  border-radius: 30px;
+  transform: translateZ(-16px);
+}
+
+.edge {
+  position: absolute;
+  background: linear-gradient(180deg, #c8d8e5, #a8b8ca, #b8c8d6);
+}
+
+.edge-r {
+  top: 30px;
+  bottom: 30px;
+  right: 0;
+  width: 16px;
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+}
+
+.edge-l {
+  top: 30px;
+  bottom: 30px;
+  left: 0;
+  width: 16px;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+.edge-t {
+  left: 30px;
+  right: 30px;
+  top: 0;
+  height: 16px;
+  transform-origin: center top;
+  transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #c0d0de, #b0c2d2, #c4d4e2);
+}
+
+.edge-b {
+  left: 30px;
+  right: 30px;
+  bottom: 0;
+  height: 16px;
+  transform-origin: center bottom;
+  transform: rotateX(90deg);
+  background: linear-gradient(90deg, #b0c0d0, #a0b0c2, #b8c8d6);
+}
+
+.corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform-style: preserve-3d;
+}
+
+.corner-tl { top: 0; left: 0; }
+.corner-tr { top: 0; right: 0; }
+.corner-bl { bottom: 0; left: 0; }
+.corner-br { bottom: 0; right: 0; }
+
+.c-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.corner-tl .c-layer { border-top: 2px solid #b3c3d3; border-left: 2px solid #b3c3d3; border-radius: 30px 0 0 0; }
+.corner-tr .c-layer { border-top: 2px solid #b3c3d3; border-right: 2px solid #b3c3d3; border-radius: 0 30px 0 0; }
+.corner-bl .c-layer { border-bottom: 2px solid #b3c3d3; border-left: 2px solid #b3c3d3; border-radius: 0 0 0 30px; }
+.corner-br .c-layer { border-bottom: 2px solid #b3c3d3; border-right: 2px solid #b3c3d3; border-radius: 0 0 30px 0; }
+
+.edge-r::before {
+  content: '';
+  position: absolute;
+  top: 110px;
+  left: 2px;
+  right: 2px;
+  height: 36px;
+  background: #cdd8e4;
+  border-radius: 2px;
+  transform: translateZ(1px);
+  box-shadow: 0 0 0 1px #90a1b3;
+}
+
+.edge-l::before {
+  content: '';
+  position: absolute;
+  top: 90px;
+  left: 2px;
+  right: 2px;
+  height: 26px;
+  background: #cdd8e4;
+  border-radius: 2px;
+  transform: translateZ(1px);
+  box-shadow: 0 0 0 1px #90a1b3;
+}
+
+.edge-l::after {
+  content: '';
+  position: absolute;
+  top: 126px;
+  left: 2px;
+  right: 2px;
+  height: 26px;
+  background: #cdd8e4;
+  border-radius: 2px;
+  transform: translateZ(1px);
+  box-shadow: 0 0 0 1px #90a1b3;
+}
+
+.edge-b::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) translateZ(-1px);
+  width: 20px;
+  height: 7px;
+  background: #3a4650;
+  border-radius: 3.5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), inset 0 -0.5px 1px rgba(0,0,0,0.2);
+}
+
+.edge-b::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(calc(-50% + 22px), -50%);
+  width: 2px;
+  height: 2px;
+  background: #4a5a68;
+  border-radius: 50%;
+  box-shadow: 4px 0 0 #4a5a68, 8px 0 0 #4a5a68, -44px 0 0 #4a5a68, -48px 0 0 #4a5a68, -52px 0 0 #4a5a68;
+}
+
+.bezel {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #d0dde8, #b8cad8, #c4d4e2);
+  border-radius: 30px;
+  padding: 3px;
+  position: relative;
+  transform: translateZ(1px);
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  background: #080808;
+  border-radius: 27px;
+  padding: 3px;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background: #080808;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--priv-opacity, 0);
+  z-index: 20;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.screen::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #060606;
+  z-index: 30;
+  box-shadow: inset 0 0 2px rgba(30,30,60,0.6), 0 0 0 0.5px rgba(255,255,255,0.04);
+}
+
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 55% 45% at 60% 35%, rgba(100,210,200,0.9), transparent 70%), radial-gradient(ellipse 50% 55% at 35% 60%, rgba(80,190,180,0.7), transparent 65%), radial-gradient(ellipse 40% 30% at 50% 50%, rgba(140,220,210,0.5), transparent), linear-gradient(155deg, #1a6b6a 0%, #2a9a98 25%, #48c4b8 45%, #3aada5 55%, #1a7a78 75%, #155858 100%);
+}
+
+.wallpaper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://wallpapercg.com/media/ts_orig/33793.webp') center/cover no-repeat;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px 0;
+  position: relative;
+  z-index: 10;
+  height: 28px;
+}
+
+.status-bar svg { display: block; }
+
+.time {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+}
+
+.status-icons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.notification {
+  margin: 38px 9px 0;
+  background: rgba(18,16,26,0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 18px;
+  padding: 12px 14px;
+  position: relative;
+  z-index: 10;
+}
+
+.notification::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--notif-priv, 0);
+  z-index: 15;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.notif-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.notif-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: #3b82f6;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.notif-icon svg { display: block; }
+
+.notif-app { font-size: 0.5rem; color: rgba(255,255,255,0.4); }
+.notif-when { font-size: 0.46rem; color: rgba(255,255,255,0.25); margin-left: auto; }
+
+.notif-title {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 2px;
+  text-decoration: none;
+}
+
+.notif-body {
+  font-size: 0.52rem;
+  color: rgba(255,255,255,0.48);
+  line-height: 1.45;
+}
+
+.dock {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+  background: rgba(0,0,0,0.22);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 8px 14px;
+}
+
+.dock-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+}
+
+.dock-icon svg { display: block; }
+
+.di-phone { background: linear-gradient(145deg, #34d058, #22a847); }
+.di-msg { background: linear-gradient(145deg, #5b7cf7, #3b5ce4); }
+.di-chrome { background: linear-gradient(145deg, #ea4335, #dd3327); }
+.di-cam { background: linear-gradient(145deg, #f5a623, #e8931a); }
+
+.home-bar {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 3.5px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 200px;
+}
+
+.panel-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.panel-sub {
+  font-size: 0.62rem;
+  color: #8a8880;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 0.2rem;
+}
+
+.mode-toggle {
+  display: flex;
+  background: #e4e1dc;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #d8d5d0;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 0.5rem 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.54rem;
+  background: transparent;
+  color: #8a8880;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mode-btn.active {
+  background: #fff;
+  color: #1a1816;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.angle-readout {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #a8a49c;
+}
+
+.angle-val { color: #1a1816; font-weight: 500; }
+
+.hint {
+  font-size: 0.55rem;
+  color: #b0aca4;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+}
+
+.refs {
+  position: fixed;
+  bottom: 0.6rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.75rem;
+  pointer-events: none;
+}
+
+.ref {
+  font-size: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #c8c4bc;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: color 0.2s;
+}
+
+.ref:hover { color: #6a6860; }
+
+@media (max-width: 640px) {
+  .scene { flex-direction: column; gap: 1.5rem; padding: 1rem; }
+  .panel { max-width: 262px; align-items: center; text-align: center; }
+  .phone { width: 224px; height: 469px; }
+}
+#snooper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 2.2rem;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+body:hover #snooper {
+  opacity: 1;
+}

@@ -1,0 +1,29 @@
+================================================================================
+PROMPT MAESTRO DEFINITIVO - CONTINUACIÓN & REFACTORIZACIÓN ASTRIX S.A.C. (2026)
+================================================================================
+
+ACTÚA COMO UN ARQUITECTO DE SOFTWARE FULL-STACK SENIOR Y DISEÑADOR UX/UI CORPORATIVO.
+
+OBJETIVO:
+Extender y refactorizar el código existente de la Web App Corporativa de "Astrix S.A.C.".
+Conserva el Hero Section funcional existente (Isotipo, Globo 3D Cobe, Badge "SaaS Nexus-Core: Online" y métricas).
+
+1. ESTRUCTURA Y NAVEGACIÓN SUPERIOR (TOP NAVBAR):
+- Traslada el menú de navegación a la parte superior (Header Sticky/Fixed).
+- En pantallas Desktop: Mostrar links principales (Nosotros, Servicios, Ecosistema, Cultura Astriana, Contacto) en la barra superior junto al Isotipo Oficial + Texto "ASTRIX".
+- En pantallas Mobile (Responsive): Mantener el menú lateral retráctil / hamburguesa existente sin alteraciones.
+
+2. ASIGNACIÓN DE PROMPTS Y ANIMACIONES A VISTAS DE SERVICIOS:
+Implementa enrutamiento dinámico para las 4 categorías principales de servicios, integrando en cada vista la animación/layout especificada en el archivo "prompts.txt":
+
+  A. VISTA "Ingeniería de Software & Sistemas ERP/CRM":
+     - Integrar la estructura y estilos del [PROMPT MANO]: Layout minimalista, tipografía Inter, video de fondo/motion, badges "Advanced Bionics/Cognitive AI" adaptados a "Enterprise ERP / Systems Architecture".
+
+  B. VISTA "Bots de Automatización & Infraestructura Cloud":
+     - Integrar la estructura y componentes del [PROMPT HUMANO IA]: Efecto Typewriter en titulares, pills interactivos multi-selección de servicios (Brand, Digital, Campaign, etc. adaptados a Bots/Cloud) con estado reactivo y feedback dinámico.
+
+  C. VISTA "Consultoría Tecnológica & Auditorías de Seguridad":
+     - Integrar la estructura del [PROMPT IMAGEN GIRANDO]: Efecto CSS ".liquid-glass" (blur, gradient borders, luminosity), badges flotantes con avatares y métricas clave de auditoría.
+
+  D. VISTA "Desarrollo de Tiendas Virtuales & E-commerce":
+     - Integrar la estructura del [PROMPT CELULAR GIRANDO]: Dispositivo móvil 3D renderizado con CSS preserve-3d, perspectiva interactiva, bordes detallados, barra de estado y notificaciones en vivo.

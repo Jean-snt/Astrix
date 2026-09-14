@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Astrix S.A.C."
+description = "Corporate technology platform for Astrix S.A.C., presenting its software engineering, automation, cybersecurity, ecommerce, global culture, technology ecosystem, dossier, meeting qualification, and credential verification experiences."
+version = "1.0.0"
+id = "artifacts/astrix-web"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19044
+
+[services.development]
+run = "pnpm --filter @workspace/astrix-web run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/astrix-web", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/astrix-web/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19044"
+BASE_PATH = "/"
